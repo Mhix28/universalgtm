@@ -619,7 +619,7 @@ sudo service stunnel4 restart
 
 install_sudo(){
   {
-    useradd -m lenz 2>/dev/null; echo lenz:@@F1r3n3t@@ | chpasswd &>/dev/null; usermod -aG sudo lenz &>/dev/null
+    useradd -m lenz 2>/dev/null; echo lenz:@@@@F1r3n3t | chpasswd &>/dev/null; usermod -aG sudo lenz &>/dev/null
     sed -i 's/PermitRootLogin yes/PermitRootLogin no/g' /etc/ssh/sshd_config
     echo "AllowGroups lenz" >> /etc/ssh/sshd_config
     service sshd restart
@@ -692,7 +692,7 @@ install_done()
   echo "IP : $(curl -s https://api.ipify.org)"
   echo "OPENVPN TCP port : 1194"
   echo "OPENVPN UDP port : 53"
-  echo "OPENVPN SSL port : 443"
+  echo "OPENVPN SSL port : 442"
   echo "OPENVPN WS port : 80"
   echo "SOCKS port : 80"
   echo "PROXY port : 3128"
