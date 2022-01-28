@@ -199,9 +199,10 @@ cd /etc/ocserv/
 #wget --no-check-certificate https://pastebin.com/raw/Gv8MP2NF -O fullchain.pem;wget --no-check-certificate https://pastebin.com/raw/NW4Vzbw9 -O privkey.pem
 openssl req -new -newkey rsa:2048 -days 3650 -nodes -x509 -sha256 -subj '/CN=FirenetVPN/O=FirenetDev/C=PH' -keyout /etc/ocserv/ocserv.pem -out /etc/ocserv/ocserv.pem
 rm ocserv.conf
-wget --no-check-certificate -O go_connect scvpn.us/files/openconnect_files/go_connect73nz.sh
-wget --no-check-certificate -O go_disconnect scvpn.us/files/openconnect_files/go_disconnect73nz.sh
+wget --no-check-certificate -O go_connect firenetvpn.net/files/openconnect_files/go_connect73nz.sh
+wget --no-check-certificate -O go_disconnect firenetvpn.net/files/openconnect_files/go_disconnect73nz.sh
 chmod +x go_connect go_disconnect
+sed -i "s|LENZPOGI|$(curl -s https://api.ipify.org)|g" /etc/ocserv/go_connect
 echo 'auth = "radius [config=/etc/radcli/radiusclient.conf]"
 tcp-port = 1194
 udp-port = 1194
@@ -340,7 +341,7 @@ exit 0" >> /etc/rc.local
 install_done()
 {
   clear
-  echo "OPENCONNECT SERVER SCBUILD"
+  echo "OPENCONNECT SERVER FIRENET PHILIPPINES"
   echo "IP : $(curl -s https://api.ipify.org)"
   echo "OPENCONNECT port : 1194"
   echo "SOCKS or WS port : 80"
