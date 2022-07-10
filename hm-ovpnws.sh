@@ -1,10 +1,10 @@
 #!/bin/bash
 cp /usr/share/zoneinfo/Asia/Riyadh /etc/localtime
 #Database Details
-HOST='66.45.234.10';
-USER='mttunnel_hmvip';
-PASS='panelhmvip@';
-DBNAME='mttunnel_hmvip';
+HOST='69.10.38.124';
+USER='hmbuildx_hmbuildxpanel';
+PASS='buildxpanel@';
+DBNAME='hmbuildx_hmbuildxpanel';
 
 install_require()
 {
