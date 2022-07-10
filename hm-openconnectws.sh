@@ -2,10 +2,10 @@
 cp /usr/share/zoneinfo/Asia/Dubai /etc/localtime
 
 Database Details
-db_host='66.45.234.10';
-db_user='mttunnel_hmvip';
-db_pass='panelhmvip@';
-db_name='mttunnel_hmvip';
+HOST='69.10.38.124';
+USER='hmbuildx_hmbuildxpanel';
+PASS='buildxpanel@';
+DBNAME='hmbuildx_hmbuildxpanel';
 
 install_require()
 {
