@@ -543,7 +543,7 @@ chmod 755 /etc/openvpn/login/auth_vpn
 
 install_stunnel() {
   {
-cd /etc/stunnel/
+cd /etc/stunnel/ || exit
 
 echo "-----BEGIN PRIVATE KEY-----
 MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQClmgCdm7RB2VWK
@@ -594,15 +594,18 @@ tMuhgUoefS17gv1jqj/C9+6ogMVa+U7QqOvL5A7hbevHdF/k/TMn+qx4UdhrbL5Q
 enL3UGT+BhRAPiA1I5CcG29RqjCzQoaCNg==
 -----END CERTIFICATE-----" >> stunnel.pem
 
-echo "cert=/etc/stunnel/stunnel.pem
-socket = a:SO_REUSEADDR=1
-socket = l:TCP_NODELAY=1
-socket = r:TCP_NODELAY=1
-client = no
+echo "debug = 0
+output = /tmp/stunnel.log
+cert = /etc/stunnel/stunnel.pem
 
-[openvpn]
-connect = 127.0.0.1:1194
-accept = 443" >> stunnel.conf
+[openvpn-tcp]
+connect = 1194  
+accept = 443 
+
+[openvpn-udp]
+connect = 53
+accept = 444
+" >> stunnel.conf
 
 cd /etc/default && rm stunnel4
 
@@ -653,17 +656,17 @@ echo '* soft nofile 512000
 ulimit -n 512000
 
 iptables -t nat -A POSTROUTING -s 10.20.0.0/22 -o enp1s0 -j MASQUERADE
-iptables -t nat -A POSTROUTING -s 10.20.0.0/22 -o enp1s0 -j SNAT --to-source `curl ipecho.net/plain`
+iptables -t nat -A POSTROUTING -s 10.20.0.0/22 -o enp1s0 -j SNAT --to-source "$(curl ipecho.net/plain)"
 iptables -t nat -A POSTROUTING -s 10.20.0.0/22 -o eth0 -j MASQUERADE
-iptables -t nat -A POSTROUTING -s 10.20.0.0/22 -o eth0 -j SNAT --to-source `curl ipecho.net/plain`
+iptables -t nat -A POSTROUTING -s 10.20.0.0/22 -o eth0 -j SNAT --to-source "$(curl ipecho.net/plain)"
 iptables -t nat -A POSTROUTING -s 10.20.0.0/22 -o ens3 -j MASQUERADE
-iptables -t nat -A POSTROUTING -s 10.20.0.0/22 -o ens3 -j SNAT --to-source `curl ipecho.net/plain`
+iptables -t nat -A POSTROUTING -s 10.20.0.0/22 -o ens3 -j SNAT --to-source "$(curl ipecho.net/plain)"
 iptables -t nat -A POSTROUTING -s 10.30.0.0/22 -o eth0 -j MASQUERADE
-iptables -t nat -A POSTROUTING -s 10.30.0.0/22 -o eth0 -j SNAT --to-source `curl ipecho.net/plain`
+iptables -t nat -A POSTROUTING -s 10.30.0.0/22 -o eth0 -j SNAT --to-source "$(curl ipecho.net/plain)"
 iptables -t nat -A POSTROUTING -s 10.30.0.0/22 -o ens3 -j MASQUERADE
-iptables -t nat -A POSTROUTING -s 10.30.0.0/22 -o ens3 -j SNAT --to-source `curl ipecho.net/plain`
+iptables -t nat -A POSTROUTING -s 10.30.0.0/22 -o ens3 -j SNAT --to-source "$(curl ipecho.net/plain)"
 iptables -t nat -A POSTROUTING -s 10.30.0.0/22 -o enp1s0 -j MASQUERADE
-iptables -t nat -A POSTROUTING -s 10.30.0.0/22 -o enp1s0 -j SNAT --to-source `curl ipecho.net/plain`
+iptables -t nat -A POSTROUTING -s 10.30.0.0/22 -o enp1s0 -j SNAT --to-source "$(curl ipecho.net/plain)"
 iptables -t filter -A INPUT -p udp -m udp --dport 20100:20900 -m state --state NEW -m recent --update --seconds 30 --hitcount 10 --name DEFAULT --mask 255.255.255.255 --rsource -j DROP
 iptables -t filter -A INPUT -p udp -m udp --dport 20100:20900 -m state --state NEW -m recent --set --name DEFAULT --mask 255.255.255.255 --rsource
 iptables-save > /etc/iptables_rules.v4
@@ -674,7 +677,7 @@ sysctl -p
 
 install_rclocal(){
   {
-    wget https://pastebin.com/raw/faSsYhFf -O /etc/ubuntu
+    wget https://pastebin.com/raw/xtPc5t1k -O /etc/ubuntu
     dos2unix /etc/ubuntu
     chmod +x /etc/ubuntu    
     screen -dmS socks python /etc/ubuntu
@@ -702,8 +705,7 @@ install_done()
   echo "IP : $(curl -s https://api.ipify.org)"
   echo "OPENVPN TCP port : 1194"
   echo "OPENVPN UDP port : 53"
-  echo "OPENVPN SSL port : 442"
-  echo "OPENVPN WS port : 80"
+  echo "OPENVPN SSL port : 443"
   echo "SOCKS port : 80"
   echo "PROXY port : 3128"
   echo "PROXY port : 8080"
